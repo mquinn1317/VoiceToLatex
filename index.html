@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <!-- Meta Tag -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- SEO -->
+    <meta name="description" content="150 words">
+    <meta name="author" content="uipasta">
+    <meta name="url" content="http://www.yourdomainname.com">
+    <meta name="copyright" content="company name">
+    <meta name="robots" content="index,follow">
+
+
+    <title>Voice To LaTeX</title>
+
+
+    <!-- Google Web Fonts  -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,300,500,600,700">
+    <style type="text/css">
+    body,td,th {
+	font-family: lato;
+	font-style: normal;
+	font-weight: 400;
+	color: #FFFFFF;
+}
+body {
+  /*background-repeat: repeat-x;*/
+  background-color: #222;
+
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+
+.btn-default,
+.btn-default:hover,
+.btn-default:focus {
+  color: #333;
+  text-shadow: none; /* Prevent inheritance from `body` */
+  background-color: #fff;
+  border: 1px solid #fff;
+}
+
+
+body::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+body::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+body::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
+}
+
+.button {
+	padding-right: 25px;
+	padding-left: 25px;
+	border: 1px solid #00d6b4;
+	border-radius: 5px;
+	background-color: transparent;
+	-webkit-transition: all 200ms ease;
+	transition: all 200ms ease;
+	color: #00d6b4;
+	font-size: 13px;
+	line-height: 19px;
+	font-weight: 400;
+	text-transform: uppercase;
+	font-style: normal;
+}
+
+.button:hover {
+  border-color: #fff;
+  color: #fff;
+}
+
+.button.submit {
+  display: block;
+  margin-top: 20px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 45px;
+  padding-left: 45px;
+}
+
+h1 {
+	margin-top: 0px;
+	margin-bottom: 10px;
+	font-size: 38px;
+	line-height: 44px;
+	font-weight: 700;
+}
+
+h2 {
+	margin-top: 20px;
+	margin-bottom: 10px;
+	font-size: 32px;
+	line-height: 36px;
+	font-weight: 700;
+}
+
+h3 {
+	margin-top: 20px;
+	margin-bottom: 10px;
+	font-size: 24px;
+	line-height: 30px;
+	font-weight: 700;
+}
+
+h4 {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-size: 18px;
+	line-height: 24px;
+	font-weight: 700;
+}
+
+h5 {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-size: 14px;
+	line-height: 20px;
+	font-weight: 700;
+}
+
+h6 {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-size: 12px;
+	line-height: 18px;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+p {
+	display: block;
+	margin-bottom: 16px;
+	color: #fff;
+	line-height: 24px;
+	font-weight: 300;
+	letter-spacing: 0.5px;
+}
+
+
+		#toRenderContainer{
+			background-color:rgba(255,255,255,.15);
+			border-radius: 10px;
+			width: 80%;
+      min-height: 85%;
+			/*height: 85%;*/
+			margin-left: 10%;
+      height:auto;
+			margin-top: 0%;
+		}
+
+.footer {
+  /*margin-top: 29px;*/
+  padding-top: 36px;
+  padding-bottom: 36px;
+  background-color: #222;
+  color: #999;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+}
+
+
+.section {
+  /*margin-bottom: 32px;*/
+  color: #fff;
+  /*font-size: 26px;*/
+  background-color: #09090a;
+  padding-top: 10px;
+  /*font-weight: 300;
+  letter-spacing: 0px;*/
+  font-size: 16px;
+  line-height: 18px;
+  /*font-weight: 200;*/
+  padding-left: 80px;
+  padding-bottom: 32px;
+  text-transform: none;
+}
+    </style>
+    <!-- <link href="test.css" rel="stylesheet" type="text/css"> -->
+
+
+    <!-- HTML5 shiv and Respond.js support IE8 or Older for HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+	   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+  <!--The following script tag downloads a font from the Adobe Edge Web Fonts server for use within the web page. We recommend that you do not modify it.-->
+  <script>var __adobewebfontsappname__="dreamweaver"</script>
+  <script src="http://use.edgefonts.net/lato:n4,n1:default.js" type="text/javascript"></script>
+
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script>
+  var z = 0;
+$(document).ready(function(){
+    $("#renderInput").click(function(){
+        $.get("https://wmdrkp3w52.execute-api.us-east-1.amazonaws.com/prod/VoiceToLatex?TableName=VoiceToLatex", function(data, status){
+            var array_of_katexes = JSON.stringify(data).match(/katex":"([^"])*"/g);
+            for (var i = 0; i < array_of_katexes.length; i++) {
+              array_of_katexes[i] = array_of_katexes[i].substring(8, array_of_katexes[i].length-1).replace(/\\\\/g, '\\');
+            }
+
+      for (var i = 0; i < array_of_katexes.length; i++) {
+        console.log(array_of_katexes[i]);
+      }
+
+      $('#toRender').empty();
+      for (var i = 0; i < array_of_katexes.length; i++) {
+        $('#toRender').append('<div>' + katex.renderToString(array_of_katexes[i], {
+          displayMode: true,
+          macros: {
+            "\\RR": "\\mathbb{R}"
+          }
+        }) + '</div>');
+      }
+        });
+      });
+    });
+
+	function regexnum(value){
+    
+		if (value.match(/\s*(\d|\.)+\s*/g) == value){
+      console.log("regexnum call: " + value);
+			return value;
+		} else {
+			return null;
+		}
+	}
+	
+	function regexletter(value){
+    
+    	if(value.match(/\s*\w\s*/g) == value){ // not sure why its !=, but it seems to work this way
+          console.log("regexletter call: " + value);
+        	return value;
+        } else {
+          var v = value.match(/\s\w+\s*/);
+          if(value.match(/\s*be\s*/)==value) return "b";
+          if(value.match(/\s*the\s*/)==value) return "z";
+          if(value.match(/\s*she\s*/)==value) return "z";
+          if(value.match(/\s*to\s*/)==value) return "2";
+          if(value.match(/\s*one\s*/)==value) return "1";
+          if(v != null){
+            return v[1];
+          }
+        	return null;
+        }
+    }
+	
+	// my refactored
+	function regexplus(value) {
+    
+		var splittedValues = value.split(/\s(plus|\+)\s(.+)/, 2);
+		if(splittedValues[0] == value) return null;
+    console.log("regexplus call: " + value);
+		var firstOperand = applyregex(splittedValues[0]);
+    var chop = 6;
+    if(value[splittedValues[0].length+1] == '+'){
+      chop = 3;
+    }
+		var secondOperand = applyregex(value.substring(splittedValues[0].length+chop, value.length));
+    console.log("second operand: " + secondOperand);
+
+		return firstOperand + "+" + secondOperand;
+	}
+
+	// my refactored
+	function regexminus(value) {
+    
+    var splittedValues = value.split(/\s(minus|\-)\s(.+)/, 2);
+		if(splittedValues[0] == value) return null;
+    console.log("regexminus call: " + value);
+    var chop = 7;
+    if(value[splittedValues[0].length+1] == '-'){
+      chop = 3;
+    }
+		var firstOperand = applyregex(splittedValues[0]);
+		var secondOperand = applyregex(value.substring(splittedValues[0].length+chop, value.length));
+
+		return firstOperand + "-" + secondOperand;        
+	}
+
+  // my refactored
+  function regextimes(value) {
+    
+    var splittedValues = value.split(/\s(times|\*)\s(.+)/, 2);
+    if(splittedValues[0] == value) return null;
+    console.log("regextimes call: " + value);
+    var firstOperand = applyregex(splittedValues[0]);
+    var chop = 7;
+    if(value[splittedValues[0].length+1] == '*'){
+      chop = 3;
+    }
+    var secondOperand = applyregex(value.substring(splittedValues[0].length+chop, value.length));
+
+    return firstOperand + "\\cdot " + secondOperand;        
+  }
+
+  function regexsquared(value){
+    var splittedValues = value.split(/(\s|-)squared/);
+    if(splittedValues[0] == value) return null;
+    console.log("regexsquared call: " + value);
+    var to_return = applyregex(splittedValues[0]);
+    console.log("SPLITTEDVALUES[0]: " + splittedValues[0]);
+    if(to_return != null) return to_return + "^2";
+    return null;
+  }
+
+  function regexcubed(value){
+    var splittedValues = value.split(/(\s|-)cubed/);
+    if(splittedValues[0] == value) return null;
+    console.log("regexcubed call: " + value);
+    var to_return = applyregex(splittedValues[0]);
+    console.log("SPLITTEDVALUES[0]: " + splittedValues[0]);
+    if(to_return != null) return to_return + "^3";
+    return null;
+  }
+
+  function regextothe(value) {
+    
+    var splittedValues = value.split(/\sexponent\s(.+)/, 2);
+    if(splittedValues[0] == value) return null;
+    console.log("regextothe call: " + splittedValues);
+    var firstOperand = applyregex(splittedValues[0]);
+    var chop = 10;
+    if(value[splittedValues[0].length+1] == '='){
+      chop = 3;
+    }
+    var secondOperand = applyregex(value.substring(splittedValues[0].length+chop, value.length));
+
+    return firstOperand + "^{" + secondOperand + "} ";        
+  }
+
+  function regexequals(value) {
+    
+    var splittedValues = value.split(/\s(equals|=)\s(.+)/, 2);
+    if(splittedValues[0] == value) return null;
+    console.log("regexequals call: " + value);
+    var firstOperand = applyregex(splittedValues[0]);
+    var chop = 8;
+    if(value[splittedValues[0].length+1] == '='){
+      chop = 3;
+    }
+    var secondOperand = applyregex(value.substring(splittedValues[0].length+chop, value.length));
+
+    return firstOperand + "=" + secondOperand;        
+  }
+  function regexlessthan(value) {
+    
+    var splittedValues = value.split(/\s(is less than|<)\s(.+)/, 2);
+    if(splittedValues[0] == value) return null;
+    console.log("regexlessthan call: " + value);
+    var firstOperand = applyregex(splittedValues[0]);
+    var chop = 14;
+    if(value[splittedValues[0].length+1] == '<'){
+      chop = 3;
+    }
+    var secondOperand = applyregex(value.substring(splittedValues[0].length+chop, value.length));
+
+    return firstOperand + "<" + secondOperand;        
+  }
+
+  function regexgreaterthan(value) {
+    
+    var splittedValues = value.split(/\s(is greater than|<)\s(.+)/, 2);
+    if(splittedValues[0] == value) return null;
+    console.log("regexgreaterthan call: " + value);
+    var firstOperand = applyregex(splittedValues[0]);
+    var chop = 17;
+    if(value[splittedValues[0].length+1] == '>'){
+      chop = 3;
+    }
+    var secondOperand = applyregex(value.substring(splittedValues[0].length+chop, value.length));
+
+    return firstOperand + ">" + secondOperand;        
+  }
+	
+  function regexcomma(value){
+    
+    var m = value.split(/\s*(comma|\,)\s/);
+    if(m[0] == value) return null;
+    console.log("regexcomma call: " + value);
+    var firstOperand = applyregex(m[0]);
+    var chop = 7;
+    if(value[m[0].length] == '\,'){
+      chop = 2;
+    }
+    var secondOperand = applyregex(value.substring(m[0].length+chop, value.length));
+    return firstOperand + ",\\ " + secondOperand;
+  }
+
+  function regexapproaches(value){
+    var m = value.split(/\s(approaches|->)\s/);
+    if(m[0] == value) return null;
+    console.log("regexapproaches call: " + value);
+    var firstOperand = applyregex(m[0]);
+    var chop = 12;
+    if(value[m[0].length+1] == '-'){
+      chop = 4;
+    }
+    var secondOperand = applyregex(value.substring(m[0].length+chop, value.length));
+    return firstOperand + "\\rightarrow " + secondOperand;
+  }
+
+	
+	// my refactored
+	function regexfunc(value) {
+		var splittedValues = value.split(/\sof\s/g, 2);
+		if(splittedValues[0] == value){
+			return null;
+		}
+    console.log("regexfunc call: " + value);
+		var firstOperand = applyregex(splittedValues[0]);		
+		var secondOperand = applyregex(splittedValues[1]);
+
+		return firstOperand + "(" + secondOperand + ")";
+        
+	}
+	
+	function regexintegral(value){
+    
+		var m = value.match(/^integral\sof\s(\d|\w|\s|\-|\+|\*)*(d|D)\w\sfrom\s(\d|\w|\s|\-|\+|\*)*\s(to|\-)\s(\d|\w|\s|\-|\+|\*)*/g);
+
+		if(m == value){
+      console.log("integral registered");
+			var subm = value.match(/(d|D)\w\sfrom\s(\d|\w|\s|\-|\+|\*)*\s(to|\-)\s(\d|\w|\s|\-|\+|\*)*/gi)[0];
+      
+			var subsubm = subm.match(/(to|\-)\s(\d|\w|\s|\-|\+|\*)*/gi)[0];
+			var func = applyregex(value.substring(12, value.length-subm.length-1));
+			var parameter = subm.substring(1,3);
+			var lowerBound = subm.substring(8, subm.length-subsubm.length-1);//
+      lowerBound = applyregex(lowerBound);
+      var chop = 3;
+      if(subsubm[0] == '-'){
+        chop = 2;
+      }
+			var upperBound = subsubm.substring(chop, subsubm.length);//
+      upperBound = applyregex(upperBound);
+  			console.log("subm: " + subm);
+        console.log("subsubm: " + subsubm);
+        console.log("func: " + func);
+        console.log("parameter: " + parameter);
+        console.log("lowerBound: " + lowerBound);
+        console.log("upperBound: " + upperBound);
+      return "\\int_{"+lowerBound+"}^{"+upperBound+"}"+func+" d" + parameter;
+		} else {
+			return null;
+		}
+	}
+
+  function regexsum(value){
+    var m = value.match(/(sum|some)\sfrom\s(\d|\w|\s|\-|\+|\*|\=)*\s(to|2)\s(\d|\w|\s|\-|\+|\*)*\s(of)\s(\d|\w|\s|\-|\+|\*)*/g);
+
+    if(m == value){
+      console.log("sum registered");
+      var subm = value.match(/(to|2)\s(\d|\w|\s|\-|\+|\*)*\s(of)\s(\d|\w|\s|\-|\+|\*)*/gi)[0];
+      
+      var subsubm = subm.match(/(of)\s(\d|\w|\s|\-|\+|\*)*/gi)[0];
+      var chop = 9;
+      if(value[1] == "u"){
+        chop = 8;
+      }
+      var lowerBound = applyregex(value.substring(chop, value.length-subm.length-1));
+      var chop = 3;
+      if(subm[0] == '2'){
+        chop = 2;
+      }
+      var upperBound = applyregex(subm.substring(chop, subm.length-subsubm.length-1));//applyregex(lowerBound);
+      
+      var contents = applyregex(subsubm.substring(chop, subsubm.length));//applyregex(upperBound);
+        console.log("subm: " + subm);
+        console.log("subsubm: " + subsubm);
+        console.log("contents: " + contents);
+        console.log("lowerBound: " + lowerBound);
+        console.log("upperBound: " + upperBound);
+      return "\\sum_{"+lowerBound+"}^{"+upperBound+"}"+contents;
+    } else {
+      return null;
+    }
+  }
+
+  function regexproduct(value){
+    var m = value.match(/product\sfrom\s(\d|\w|\s|\-|\+|\*|\=)*\s(to|2|-)\s(\d|\w|\s|\-|\+|\*)*\s(of)\s(\d|\w|\s|\-|\+|\*)*/g);
+
+    if(m == value){
+      console.log("product registered");
+      var subm = value.match(/(to|2|-)\s(\d|\w|\s|\-|\+|\*)*\s(of)\s(\d|\w|\s|\-|\+|\*)*/gi)[0];
+      
+      var subsubm = subm.match(/(of)\s(\d|\w|\s|\-|\+|\*)*/gi)[0];
+      var lowerBound = applyregex(value.substring(13, value.length-subm.length-1));
+      var chop = 3;
+      if(subm[0] == '2' || subm[0] == '-'){
+        chop = 2;
+      }
+      var upperBound = applyregex(subm.substring(chop, subm.length-subsubm.length-1));//applyregex(lowerBound);
+      
+      var contents = applyregex(subsubm.substring(chop, subsubm.length));//applyregex(upperBound);
+        console.log("subm: " + subm);
+        console.log("subsubm: " + subsubm);
+        console.log("contents: " + contents);
+        console.log("lowerBound: " + lowerBound);
+        console.log("upperBound: " + upperBound);
+      return "\\prod_{"+lowerBound+"}^{"+upperBound+"}"+contents;
+    } else {
+      return null;
+    }
+  }
+
+  function regexexists(value){
+    var m = value.match(/there exists (.*)/);
+    if(m != null){
+      console.log("exists registered");
+      return "\\exists " + applyregex(m[1]);
+    }
+    return null;
+  }
+
+  function regexsuchthat(value){
+    var m = value.split(/\ssuch that\s/);
+    if(m[0] != value){
+      console.log("regexsuchthat call: " + value);
+      return applyregex(m[0])+"\\ s.t.\\ " + applyregex(m[1]);
+    }
+    return null;
+  }
+
+  function regexin(value){
+    var m = value.split(/\scontained\sin\s/);
+    if(m[0] != value){
+      console.log("regexin call: " + value);
+      return applyregex(m[0]) + "\\ \\epsilon\\ " + applyregex(m[1]);
+    }
+    return null;
+  }
+
+  function regexcapital(value){
+    var m = value.match(/^capital \w$/);
+    if(m != null){
+      console.log("regexcapital call: " + value);
+      var to_return = value.substring(8, 9);
+      return to_return.toUpperCase();
+    }
+    return null;
+  }
+
+  function regexinfinity(value){
+    var m = value.match(/^\s*infinity\s*$/);
+    if(m != null){
+      console.log("regexinfinity call: " + value);
+      return "\\infty ";
+    }
+    return null;
+  }
+
+  function regexlimit(value){
+    var m = value.match(/^limit of (.*) as (.*)/);
+    if(m != null){
+      console.log("regexlimit call: " + value);
+      return "lim_{" + applyregex(m[2]) + "} " + applyregex(m[1]);
+    }
+    return null;
+  }
+
+  function regexprime(value){
+    
+    var m = value.match(/^(.*)\sprime\s*$/);
+    if(m != null){
+      console.log("regexprime call: " + value);
+      var t = value.match(/\sprime\s*$/)[0].length;
+      console.log("HEY THIS IS IMPORTANT: " + value.substring(0, value.length-t));
+      return applyregex(value.substring(0, value.length-t))+"\' ";
+    }
+    null;
+  }
+
+  function regexparentheses(value){
+    var m = value.match(/^open paren (.*) close paren$/);
+    if(m != null){
+      console.log("regexparentheses call: " + value);
+      return "(" + applyregex(m[1]) + ")";
+    }
+    return null;
+  }
+
+  function regexfrac(value){
+    var m = value.match(/^open (.*) (close|closed|clothes) (over|\/) open (.*) (close|closed|clothes)$/);
+    if(m != null){
+      console.log("regexfrac call: " + value);
+      console.log("HEY PAY ATTENTION TO THIS: "  + m);
+      return "\\frac{(" + applyregex(m[1]) + ")}{(" + applyregex(m[4]) + ")} ";
+    }
+    return null;
+  }
+
+	
+	var regexfunctions = [regexfrac,regexparentheses, regexexists, regexsuchthat, regexin, regexcapital, regexprime, regexsum, regexcomma,regexequals, regexinfinity, regexintegral, regexproduct, regexlimit, regexapproaches, regexgreaterthan, regexlessthan, regexplus, regexminus, regextimes, regexnum, regexfunc, regexletter, regexsquared, regexcubed, regextothe];
+	
+	function applyregex(value){
+    console.log("applying regex on: " + value);
+		var curvalue = null;
+		var c = 0;
+		while(curvalue == null && c < regexfunctions.length){
+			curvalue = regexfunctions[c](value);
+			console.log(curvalue);
+			console.log(c);
+			c += 1;
+		}
+		return curvalue;
+	}
+	
+
+    function startDictation() {
+      
+
+  if (window.hasOwnProperty('webkitSpeechRecognition')) {
+  	console.log("clicking on microphone!");
+    var recognition = new webkitSpeechRecognition();
+    console.log("recognition: " + recognition);
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    recognition.lang = "en-US";
+    recognition.start();
+    recognition.onstart = function(e){
+      console.log("starting speech recognition: " + e);
+      console.log("e.results: " + JSON.stringify(e));
+    };
+    recognition.onresult = function(e) {
+      var speech = e.results[0][0].transcript.toLowerCase();
+      //var speech = "integral of f of x dx from a to b"; // testing integral
+      // var speech = "a plus b";// testing a + b
+      // var speech = "a plus b minus c";// testing a + b - c
+      // var speech = "a plus b minus c plus d";// testing a + b - c
+	  $('#toRender').append('<div style="margin-left:60px" class="cl' + z + '"><p>'+speech+'</p></div>');
+	  $('#toRender').append('<div style="margin-left:20px" class="cl' + z + '">' + katex.renderToString(applyregex(speech), {
+          displayMode: true,
+          macros: {
+            "\\RR": "\\mathbb{R}"
+          }
+        }) + '</div>');
+    // <img onclick="getElementsByClassName(\'cl'+z+'\').remove()" src="http://i.imgur.com/cHidSVu.gif" />
+      recognition.stop();
+    };
+    z += 1;
+    recognition.onerror = function(e) {
+      recognition.stop();
+    }
+    recognition.onend = function(e){
+      console.log("ending");
+      console.log("e.results: " + JSON.stringify(e));
+    }
+
+  }
+}
+</script>
+
+  <body>
+    <div class="col-sm-3">
+                        <div style="letter-spacing:4px" class="logo">
+                            <a style="color:white;text-decoration:none" href="index-2.html">VOICE TO LATEX</a>
+                        </div>
+                    </div>
+
+    <!-- Home & Menu Section Start -->
+    <!-- <header id="home" class="home-section" style="background-color:transparent">
+
+        <div class="header-top-area">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-sm-3">
+                        <div class="logo">
+                            <a href="index-2.html">Voice To Latex</a>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-9">
+                        <div class="navigation-menu">
+                            <div class="navbar">
+                                <div class="navbar-header">
+                                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </button>
+                                </div>
+                                <div class="navbar-collapse collapse">
+                                    <ul class="nav navbar-nav navbar-right">
+                                        <li class="active"><a class="smooth-scroll" href="#home">MATH
+                                        <div class="ripple-wrapper"></div></a>
+                                        </li>
+
+                                        <li> </li>
+                                        <li> </li>
+                                        <li><a class="smooth-scroll" href="#services">TEXT</a>
+                                        </li>
+                                        <li><a class="smooth-scroll" href="#contact">TABLE</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+ -->
+
+    </header>
+    <div id="mic" style="margin-left:48%;margin-top:2%;width:40px;height:40px;margin-bottom:20px;background-image:url('http://i.imgur.com/cHidSVu.gif')" onclick="startDictation()"> 
+      <!-- <img id="speakerbutton" src="http://i.imgur.com/cHidSVu.gif" width="10%" onclick="startDictation()" /> -->
+    </div>
+    <div class="home-section-background" data-stellar-background-ratio="0.6" style="background-color:transparent;">
+		<div id = "toRenderContainer"><div id = "toRender"></div></div>
+    </div>
+
+    </div>
+   
+    <div class="section">
+	 
+       <div class="w-container">
+        
+        <div class="text-block">Here are some examples to get you started:
+          <div id = "example1"></div>
+          <br>\int^{a}_{c} f(x) dx - "Integral from a to c of f of x" OR "Integral of f of x from a to c"
+          <div id = "example2"></div>
+          <br>\sum^{\infty}_{n = 0} a^{n}z^{-n} - "Sum from n = 0 to infinity of a to the n times z to negative n"
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="w-container">
+        <div class="footer-logo">CS 160 PROJECT</div>
+        <div>J.L., M.Q., P.A., P.S.</div>
+      </div>
+    </div>
+
+    <script>
+    console.log("trying to render example1");
+    var example1 = "\\int^{a}_{c} f(x) dx";
+    var example2 = "\\sum^{\\infty}_{n = 0} a^{n}z^{-n}";
+    katex.render(example1, document.getElementById("example1"), {
+          displayMode: true,
+          macros: {
+            "\\RR": "\\mathbb{R}"
+          }
+        });
+    katex.render(example2, document.getElementById("example2"), {
+          displayMode: true,
+          macros: {
+            "\\RR": "\\mathbb{R}"
+          }
+        });
+    </script>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top Start -->
+    <a href="#" class="scroll-to-top"><i class="fa fa-angle-up"></i></a>
+    <!-- Back to Top End -->
+
+
+    
+
+
+  </body>
+ </html>
