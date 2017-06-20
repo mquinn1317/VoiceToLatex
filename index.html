@@ -264,6 +264,7 @@ $(document).ready(function(){
           if(value.match(/\s*she\s*/)==value) return "z";
           if(value.match(/\s*to\s*/)==value) return "2";
           if(value.match(/\s*one\s*/)==value) return "1";
+	  if(value.match(/\s*end\s*/)==value) return "n";
           if(v != null){
             return v[1];
           }
@@ -337,6 +338,16 @@ $(document).ready(function(){
     var to_return = applyregex(splittedValues[0]);
     console.log("SPLITTEDVALUES[0]: " + splittedValues[0]);
     if(to_return != null) return to_return + "^3";
+    return null;
+  }
+	
+  function regexnegative(value){
+    var splittedValues = value.split(/negative\s/);
+    if(splittedValues[0] == value) return null;
+    console.log("regexnegative call: " + value);
+    var to_return = applyregex(splittedValues[0]);
+    console.log("SPLITTEDVALUES[0]: " + splittedValues[0]);
+    if(to_return != null) return "-"+to_return;
     return null;
   }
 
@@ -617,7 +628,7 @@ $(document).ready(function(){
   }
 
 	
-	var regexfunctions = [regexfrac,regexparentheses, regexexists, regexsuchthat, regexin, regexcapital, regexprime, regexsum, regexcomma,regexequals, regexinfinity, regexintegral, regexproduct, regexlimit, regexapproaches, regexgreaterthan, regexlessthan, regexplus, regexminus, regextimes, regexnum, regexfunc, regexletter, regexsquared, regexcubed, regextothe];
+	var regexfunctions = [regexfrac,regexparentheses, regexexists, regexsuchthat, regexin, regexcapital, regexprime, regexsum, regexcomma,regexequals, regexinfinity, regexintegral, regexproduct, regexlimit, regexapproaches, regexgreaterthan, regexlessthan, regexplus, regexminus, regextimes, regexnum, regexfunc, regexletter, regexsquared, regexcubed, regextothe, regexnegative];
 	
 	function applyregex(value){
     console.log("applying regex on: " + value);
